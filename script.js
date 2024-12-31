@@ -234,11 +234,11 @@ function syncLyrics() {
 
         let classNames = "m-3 font-bold cursor-pointer ";
         if (isCurrent) {
-          classNames += "text-white text-2xl";
+          classNames += "text-white text-2xl sm:3xl";
         } else if (isPrevious) {
-          classNames += "text-slate-300 text-xl";
+          classNames += "text-slate-300 text-xl sm:2xl";
         } else if (isNext) {
-          classNames += "text-black text-xl";
+          classNames += "text-black text-xl sm:2xl";
         } else {
           return ""; // Si la letra no está cerca, no se muestra
         }
