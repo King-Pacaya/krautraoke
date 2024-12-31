@@ -6,7 +6,7 @@ const songs = [
   { title: "Line Without a Hook", artist: "Ricky Montgomery", cover: "covers/Montgomery Ricky cover.jpg", audio: "songs/Line Without a Hook.mp3", lyrics: "lyrics/Line Without a Hook.txt" },
   { title: "Louder Than Words", artist: "Andrew Garfield", cover: "covers/Tick Tick Boom cover.jpg", audio: "songs/Louder Than Words.mp3", lyrics: "lyrics/Louder Than Words.txt" },
   { title: "Raspberry", artist: "Grouplove", cover: "covers/Spreading Rumours cover.jpg", audio: "songs/Raspberry.mp3", lyrics: "lyrics/Raspberry.txt" },
-  { title: "Sad Songs", artist: "Eric Hutchinson", cover: "covers/Sad Songs cover.jpg", audio: "songs/Sad Songs.mp3", lyrics: "lyrics/Sad Songs.txt" },
+  { title: "Sad Songs", artist: "Eric Hutchinson", cover: "covers/Sad Songs cover.jpg", audio: "songs/Sad Songs (feat. Allen Stone, Clyde Lawrence, Huntertones).mp3", lyrics: "lyrics/Sad Songs.txt" },
   { title: "Sing Along With Me", artist: "Eric Hutchinson", cover: "covers/SING ALONG! with Eric Hutchinson cover.jpg", audio: "songs/Sing Along With Me.mp3", lyrics: "lyrics/Sing Along With Me.txt" },
   { title: "What Do I Know", artist: "Ed Sheeran", cover: "covers/÷ cover.jpg", audio: "songs/What Do I Know.mp3", lyrics: "lyrics/What Do I Know.txt" },
 ];
@@ -221,8 +221,8 @@ function syncLyrics() {
       .map((line, index) => {
         // Crear una línea de letra con un evento click
         const isCurrent = index === lyricsIndex;
-        const isPrevious = index === lyricsIndex - 1 || index === lyricsIndex - 2 || index === lyricsIndex - 3;
-        const isNext = index === lyricsIndex + 1 || index === lyricsIndex + 2 || index === lyricsIndex + 3;
+        const isPrevious = index === lyricsIndex - 1 || index === lyricsIndex - 2;
+        const isNext = index === lyricsIndex + 1 || index === lyricsIndex + 2;
 
         let classNames = "m-3 font-bold cursor-pointer text-2xl ";
         if (isCurrent) {
