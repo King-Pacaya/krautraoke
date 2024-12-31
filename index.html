@@ -34,8 +34,13 @@
     }
 
     .focused {
-      outline: 2px solid #00ff00; /* Resaltar con un borde verde */
-      background-color: rgba(0, 255, 0, 0.2); /* Fondo semitransparente */
+      outline: 2px solid #00ff00;
+      background-color: rgba(0, 255, 0, 0.2);
+    }
+
+    .focused.fading {
+      outline: 2px solid transparent; /* Oculta el borde */
+      background-color: transparent; /* Fondo transparente */
     }
     </style>
 </head>
@@ -52,7 +57,7 @@
     <div class="flex w-full justify-between items-center">
       <!-- Contenedor para el cover, con borde redondeado -->
       <div class="album-container flex justify-center items-center w-1/2">
-        <div class="album-cover w-72 h-72 rounded-xl overflow-hidden">
+        <div class="album-cover w-64 h-64 rounded-xl overflow-hidden">
           <img id="album-cover" src="" alt="Álbum" class="w-full h-full object-cover hidden">
         </div>
       </div>
@@ -92,7 +97,7 @@
 
     <!-- Controles de reproducción y barra de progreso (centrados) -->
     <div class="controls-container flex flex-col items-center flex-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <div class="buttons flex justify-center gap-10 mb-4 text-gray-400 text-xl">
+      <div class="buttons flex justify-center gap-10 mb-4 text-gray-400 text-lg">
         <button id="shuffle-btn" class="focusable">
           <i class="fa-solid fa-shuffle hover:text-white transition duration-100"></i>
         </button>
@@ -100,10 +105,10 @@
           <i class="fa-solid fa-backward-step hover:text-white transition duration-100"></i>
         </button>
         <button id="play-btn" class="focusable">
-          <i class="fa-solid text-white fa-circle-play text-4xl"></i>
+          <i class="fa-solid text-white fa-circle-play text-3xl"></i>
         </button>
         <button id="pause-btn" class="hidden focusable">
-          <i class="fa-solid text-white fa-circle-pause text-4xl"></i>
+          <i class="fa-solid text-white fa-circle-pause text-3xl"></i>
         </button>
         <button id="next-btn" class="focusable">
           <i class="fa-solid fa-forward-step hover:text-white"></i>
@@ -114,13 +119,13 @@
       </div>
 
       <div class="progress-container flex items-center w-full">
-        <span id="current-time" class="text-sm">00:00</span>
+        <span id="current-time" class="text-xs">00:00</span>
         <div class="progress-bar group rounded-2xl flex-1 h-1.5 bg-gray-600 mx-4 relative cursor-pointer w-96">
           <div class="current h-full rounded-2xl bg-white w-0 group-hover:bg-green-500"></div>
           <!-- Círculo que avanza con la barra -->
           <div id="progress-circle" class="absolute top-1/2 transform -translate-y-1/2 left-0 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-100"></div>
         </div>
-        <span id="total-time" class="text-sm">00:00</span>
+        <span id="total-time" class="text-xs">00:00</span>
       </div>
 
     </div>

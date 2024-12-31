@@ -1,13 +1,22 @@
 const songs = [
   { title: "888", artist: "Cavetown", cover: "covers/Lemon Boy cover.jpg", audio: "songs/888.mp3", lyrics: "lyrics/888.txt" },
   { title: "a million bucks on a queen motel bed", artist: "Eric Hutchinson", cover: "covers/Modern Happiness cover.jpg", audio: "songs/a million bucks on a queen motel bed.mp3", lyrics: "lyrics/a million bucks on a queen motel bed.txt" },
+  { title: "Alexander Hamilton", artist: "Lin-Manuel Miranda", cover: "covers/Hamilton (Original Broadway Cast Recording) cover.jpg", audio: "songs/Alexander Hamilton.mp3", lyrics: "lyrics/Alexander Hamilton.txt" },
+  { title: "Back to Where I Was", artist: "Eric Hutchinson", cover: "covers/Sounds Like This cover.jpg", audio: "songs/Back to Where I Was.mp3", lyrics: "lyrics/Back to Where I Was.txt" },
   { title: "Boys Will Be Bugs", artist: "Cavetown", cover: "covers/Animal Kingdom cover.jpg", audio: "songs/Boys Will Be Bugs.mp3", lyrics: "lyrics/Boys Will Be Bugs.txt" },
+  { title: "Call off Your Dogs", artist: "Lake Street Dive", cover: "covers/Side Pony cover.jpg", audio: "songs/Call off Your Dogs.mp3", lyrics: "lyrics/Call off Your Dogs.txt" },
   { title: "Castle on the Hill", artist: "Ed Sheeran", cover: "covers/÷ cover.jpg", audio: "songs/Castle on the Hill.mp3", lyrics: "lyrics/Castle on the Hill.txt" },
+  { title: "drinking games", artist: "Silver", cover: "covers/Drinking Games cover.jpg", audio: "songs/drinking games.mp3", lyrics: "lyrics/drinking games.txt" },  
+  { title: "It Hasn't Been Long Enough", artist: "Eric Hutchinson", cover: "covers/Sounds Like This cover.jpg", audio: "songs/It Hasn't Been Long Enough.mp3", lyrics: "lyrics/It Hasn't Been Long Enough.txt" },
   { title: "Line Without a Hook", artist: "Ricky Montgomery", cover: "covers/Montgomery Ricky cover.jpg", audio: "songs/Line Without a Hook.mp3", lyrics: "lyrics/Line Without a Hook.txt" },
   { title: "Louder Than Words", artist: "Andrew Garfield", cover: "covers/Tick Tick Boom cover.jpg", audio: "songs/Louder Than Words.mp3", lyrics: "lyrics/Louder Than Words.txt" },
+  { title: "Money Game, Pt. 2", artist: "Ren", cover: "covers/Demos (Do Not Share), Vol 1 cover.jpg", audio: "songs/Money Game, Pt. 2.mp3", lyrics: "lyrics/Money Game, Pt. 2.txt" },
   { title: "Raspberry", artist: "Grouplove", cover: "covers/Spreading Rumours cover.jpg", audio: "songs/Raspberry.mp3", lyrics: "lyrics/Raspberry.txt" },
   { title: "Sad Songs", artist: "Eric Hutchinson", cover: "covers/Sad Songs cover.jpg", audio: "songs/Sad Songs (feat. Allen Stone, Clyde Lawrence, Huntertones).mp3", lyrics: "lyrics/Sad Songs.txt" },
+  { title: "Say My Name", artist: "Alex Brightman", cover: "covers/Beetlejuice (Original Broadway Cast Recording) cover.jpg", audio: "songs/Say My Name.mp3", lyrics: "lyrics/Say My Name.txt" },
+  { title: "Semolina", artist: "Blackaby", cover: "covers/Semolina cover.jpg", audio: "songs/Semolina.mp3", lyrics: "lyrics/Semolina.txt" },
   { title: "Sing Along With Me", artist: "Eric Hutchinson", cover: "covers/SING ALONG! with Eric Hutchinson cover.jpg", audio: "songs/Sing Along With Me.mp3", lyrics: "lyrics/Sing Along With Me.txt" },
+  { title: "The People I Know", artist: "Eric Hutchinson", cover: "covers/Moving Up Living Down cover.jpg", audio: "songs/The People I Know.mp3", lyrics: "lyrics/The People I Know.txt" },
   { title: "What Do I Know", artist: "Ed Sheeran", cover: "covers/÷ cover.jpg", audio: "songs/What Do I Know.mp3", lyrics: "lyrics/What Do I Know.txt" },
 ];
 
@@ -127,8 +136,8 @@ function loadSong(index) {
   albumCover.onload = () => {
     const vibrant = new Vibrant(albumCover);
     const swatches = vibrant.swatches();
-    if (swatches.Vibrant) {
-      document.body.style.backgroundColor = swatches.Vibrant.getHex(); // Fondo vibrante
+    if (swatches.DarkVibrant) {
+      document.body.style.backgroundColor = swatches.DarkVibrant.getHex(); // Fondo vibrante
     }
   };
 
@@ -141,7 +150,6 @@ function loadSong(index) {
   // Resaltar la canción en la lista
   highlightCurrentSong(index);
 }
-
 
 // Cambiar el color de la canción actual
 function highlightCurrentSong(index) {
@@ -161,9 +169,9 @@ function closePlaylist() {
   playlistElement.classList.add("hidden");
 }
 
-// Mostrar/ocultar lista de reproducción
+// Mostrar lista de reproducción
 playlistBtn.addEventListener("click", () => {
-  playlistElement.classList.toggle("hidden");
+  playlistElement.classList.remove("hidden");
 });
 
 // Cerrar la lista con el botón de la equis
@@ -225,9 +233,9 @@ function syncLyrics() {
         const isPrevious = index === lyricsIndex - 1 || index === lyricsIndex - 2;
         const isNext = index === lyricsIndex + 1 || index === lyricsIndex + 2;
 
-        let classNames = "m-3 font-bold cursor-pointer text-2xl ";
+        let classNames = "m-3 font-bold cursor-pointer text-xl ";
         if (isCurrent) {
-          classNames += "text-white text-3xl";
+          classNames += "text-white text-2xl";
         } else if (isPrevious) {
           classNames += "text-slate-300";
         } else if (isNext) {
@@ -339,20 +347,53 @@ let focusedIndex = 0; // Índice del elemento actualmente enfocado
 // Inicializar el primer elemento enfocado
 focusableElements[focusedIndex].classList.add("focused");
 
+let fadeTimeout;
+
+function togglePlaylistVisibility() {
+  const focusedElement = document.querySelector(".focusable.focused");
+  const playlistIsOpen = !playlistElement.classList.contains("hidden");
+
+  if (focusedElement && playlistElement.contains(focusedElement)) {
+    // Abrir la playlist si no está abierta
+    if (!playlistIsOpen) {
+      playlistElement.classList.remove("hidden");
+    }
+  } else {
+    // Cerrar la playlist si está abierta y el foco está fuera de ella
+    if (playlistIsOpen) {
+      playlistElement.classList.add("hidden");
+    }
+  }
+}
+
 // Mover el foco al siguiente o anterior elemento
 function moveFocus(direction) {
-  focusableElements[focusedIndex].classList.remove("focused"); // Quitar foco del elemento actual
+  clearTimeout(fadeTimeout); // Evita que el temporizador anterior afecte al nuevo foco
+
+  const currentFocused = focusableElements[focusedIndex];
+  currentFocused.classList.remove("focused", "fading"); // Quitar estilos previos
 
   if (direction === "down") {
     focusedIndex = (focusedIndex + 1) % focusableElements.length;
   } else if (direction === "up") {
     focusedIndex = (focusedIndex - 1 + focusableElements.length) % focusableElements.length;
-  } else if (direction === "right" || direction === "left") {
-    // Opcional: Implementa lógica para navegación horizontal si es relevante
   }
 
-  focusableElements[focusedIndex].classList.add("focused"); // Agregar foco al nuevo elemento
+  const newFocused = focusableElements[focusedIndex];
+  newFocused.classList.add("focused"); // Agregar clase de foco
+  
+  // Asegurarse de que el elemento esté visible en la lista
+  newFocused.scrollIntoView({ block: "nearest", behavior: "smooth" });
+
+  // Configurar desvanecimiento después de un tiempo
+  fadeTimeout = setTimeout(() => {
+    newFocused.classList.add("fading");
+  }, 2000); // 2 segundos antes de desvanecer
+
+  // Lógica para abrir o cerrar la playlist
+  togglePlaylistVisibility();
 }
+
 
 // Ejecutar la acción del elemento enfocado
 function activateFocusedElement() {
