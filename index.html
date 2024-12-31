@@ -56,14 +56,14 @@
   <main class="main-container flex-1 flex items-center justify-center gap-8 px-4">
     <div class="flex w-full justify-between items-center">
       <!-- Contenedor para el cover, con borde redondeado -->
-      <div class="album-container flex justify-center items-center w-1/2">
+      <div class="album-container flex justify-center items-center w-1/2 md:hidden">
         <div class="album-cover w-64 h-64 rounded-xl overflow-hidden">
           <img id="album-cover" src="" alt="Álbum" class="w-full h-full object-cover hidden">
         </div>
       </div>
 
       <!-- Contenedor de letras -->
-      <div class="lyrics-container flex justify-center items-center w-1/2">
+      <div class="lyrics-container flex justify-center items-center w-1/2 md:w-full">
         <div class="lyrics text-center leading-loose" id="lyrics">
           Selecciona una canción para empezar.
         </div>
@@ -80,18 +80,18 @@
     </div>
     
     <!-- Lista de canciones -->
-    <ul id="song-list" class="space-y-2 h-[calc(100vh-175px)] overflow-y-auto">
+    <ul id="song-list" class="space-y-2 h-[calc(100vh-161px)] overflow-y-auto">
       <!-- Canciones dinámicas -->
     </ul>
   </div>
 
-  <div class="control-bar bg-black p-4 shadow-inner flex items-center justify-between relative">
+  <div class="control-bar bg-black p-4 shadow-inner flex items-center justify-between relative" style="height: 96px;">
     <!-- Información de la canción actual -->
     <div class="song-info flex items-center space-x-4 text-white">
-      <img id="current-cover" src="" alt="Cover" class="w-16 h-16 rounded-md object-cover">
+      <img id="current-cover" src="" alt="Cover" class="w-14 h-14 rounded-md object-cover">
       <div>
-        <p id="current-title" class="text-sm">Título</p>
-        <p id="current-artist" class="text-sm text-gray-400">Artista</p>
+        <p id="current-title" class="text-xs">Título</p>
+        <p id="current-artist" class="text-xs text-gray-400">Artista</p>
       </div>
     </div>
 
@@ -122,7 +122,6 @@
         <span id="current-time" class="text-xs">00:00</span>
         <div class="progress-bar group rounded-2xl flex-1 h-1.5 bg-gray-600 mx-4 relative cursor-pointer w-96">
           <div class="current h-full rounded-2xl bg-white w-0 group-hover:bg-green-500"></div>
-          <!-- Círculo que avanza con la barra -->
           <div id="progress-circle" class="absolute top-1/2 transform -translate-y-1/2 left-0 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-100"></div>
         </div>
         <span id="total-time" class="text-xs">00:00</span>
