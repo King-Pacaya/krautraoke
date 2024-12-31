@@ -107,7 +107,7 @@
 
     <!-- Controles de reproducción y barra de progreso -->
     <div class="controls-container flex flex-col items-center w-full md:w-auto md:flex-1 md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2">
-      <div class="buttons flex justify-center gap-10 mb-5 text-gray-400 text-3xl md:text-2xl">
+      <div class="buttons flex justify-center gap-10 mb-5 text-gray-400 text-xl md:text-2xl">
         <button id="shuffle-btn" class="focusable">
           <i class="fa-solid fa-shuffle hover:text-white transition duration-100"></i>
         </button>
@@ -115,10 +115,10 @@
           <i class="fa-solid fa-backward-step hover:text-white transition duration-100"></i>
         </button>
         <button id="play-btn" class="focusable">
-          <i class="fa-solid text-white fa-circle-play text-4xl md:text-3xl"></i>
+          <i class="fa-solid text-white fa-circle-play text-2xl md:text-3xl"></i>
         </button>
         <button id="pause-btn" class="hidden focusable">
-          <i class="fa-solid text-white fa-circle-pause text-4xl md:text-3xl"></i>
+          <i class="fa-solid text-white fa-circle-pause text-2xl md:text-3xl"></i>
         </button>
         <button id="next-btn" class="focusable">
           <i class="fa-solid fa-forward-step hover:text-white"></i>
@@ -129,12 +129,12 @@
       </div>
 
       <div class="progress-container flex items-center w-full">
-        <span id="current-time" class="text-base md:text-xs">00:00</span>
+        <span id="current-time" class="text-sm md:text-xs">00:00</span>
         <div class="progress-bar group rounded-2xl flex-1 h-1.5 bg-gray-600 mx-4 relative cursor-pointer w-96">
           <div class="current h-full rounded-2xl bg-white w-0 group-hover:bg-green-500"></div>
           <div id="progress-circle" class="absolute top-1/2 transform -translate-y-1/2 left-0 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-100"></div>
         </div>
-        <span id="total-time" class="text-base md:text-xs">00:00</span>
+        <span id="total-time" class="text-sm md:text-xs">00:00</span>
       </div>
     </div>
   </div>
