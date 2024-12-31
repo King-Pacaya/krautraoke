@@ -65,7 +65,7 @@ songs.forEach((song, index) => {
   const coverImg = document.createElement("img");
   coverImg.src = song.cover;
   coverImg.alt = "Cover";
-  coverImg.classList.add("w-14", "h-14", "rounded-md", "object-cover");
+  coverImg.classList.add("w-14", "h-14", "rounded-md", "object-cover", "sm:w-20", "sm:h-20");
 
   // Crear capa de oscurecimiento en hover
   const overlay = document.createElement("div");
@@ -84,11 +84,11 @@ songs.forEach((song, index) => {
   const textContainer = document.createElement("div");
   const title = document.createElement("p");
   title.textContent = song.title;
-  title.classList.add("text-xs");
+  title.classList.add("text-xs", "sm:text-lg");
 
   const artist = document.createElement("p");
   artist.textContent = song.artist;
-  artist.classList.add("text-xs", "text-gray-400", "group-hover:text-white");
+  artist.classList.add("text-xs", "text-gray-400", "group-hover:text-white", "sm:text-lg");
 
   textContainer.appendChild(title);
   textContainer.appendChild(artist);
@@ -154,7 +154,7 @@ function loadSong(index) {
 function highlightCurrentSong(index) {
   const songItems = songListElement.querySelectorAll("li");
   songItems.forEach((item, i) => {
-    const title = item.querySelector("p.text-xs"); // Seleccionar el título de la canción
+    const title = item.querySelector("p.text-xs", "p.sm:text-lg"); // Seleccionar el título de la canción
     if (i === index) {
       title.classList.add("text-green-500"); // Resaltar la canción en reproducción
     } else {
@@ -234,11 +234,11 @@ function syncLyrics() {
 
         let classNames = "m-3 font-bold cursor-pointer ";
         if (isCurrent) {
-          classNames += "text-white text-2xl sm:3xl";
+          classNames += "text-white text-2xl sm:6xl";
         } else if (isPrevious) {
-          classNames += "text-slate-300 text-xl sm:2xl";
+          classNames += "text-slate-300 text-xl sm:5xl";
         } else if (isNext) {
-          classNames += "text-black text-xl sm:2xl";
+          classNames += "text-black text-xl sm:5xl";
         } else {
           return ""; // Si la letra no está cerca, no se muestra
         }
