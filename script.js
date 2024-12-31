@@ -30,6 +30,7 @@ const totalTime = document.getElementById("total-time");
 const currentCover = document.getElementById("current-cover");
 const currentTitle = document.getElementById("current-title");
 const currentArtist = document.getElementById("current-artist");;
+const fullscreenBtn = document.getElementById("fullscreen-btn");
 
 let audio = null;
 let lyrics = [];
@@ -41,7 +42,7 @@ let isLooping = false;
 songs.forEach((song, index) => {
   const li = document.createElement("li");
   li.dataset.index = index;
-  li.classList.add("flex", "items-center", "space-x-4", "text-white", "cursor-pointer", "hover:bg-zinc-600", "p-2", "group");
+  li.classList.add("flex", "items-center", "space-x-4", "text-white", "cursor-pointer", "hover:bg-zinc-600", "p-2", "group", "focusable");
 
   // Crear contenedor para la portada y la información de la canción
   const songInfo = document.createElement("div");
@@ -302,6 +303,82 @@ function nextSong() {
   loadSong(currentSongIndex);
   playSong(); // Asegura que la siguiente canción se reproduzca automáticamente
 }
+
+// Alternar el modo de pantalla completa
+fullscreenBtn.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+    fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i>'; // Cambiar ícono al de salir de pantalla completa
+  } else {
+    document.exitFullscreen();
+    fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i>'; // Cambiar ícono al de entrar a pantalla completa
+  }
+});
+
+// Controlar la reproducción/pausa con la tecla de espacio
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    event.preventDefault(); // Evita que la página se desplace hacia abajo al presionar la barra espaciadora
+
+    if (audio) {
+      if (audio.paused) {
+        playSong();
+      } else {
+        audio.pause();
+        pauseBtn.classList.add("hidden");
+        playBtn.classList.remove("hidden");
+      }
+    }
+  }
+});
+
+// Obtener todos los elementos interactivos (botones y canciones)
+const focusableElements = Array.from(document.querySelectorAll(".focusable"));
+let focusedIndex = 0; // Índice del elemento actualmente enfocado
+
+// Inicializar el primer elemento enfocado
+focusableElements[focusedIndex].classList.add("focused");
+
+// Mover el foco al siguiente o anterior elemento
+function moveFocus(direction) {
+  focusableElements[focusedIndex].classList.remove("focused"); // Quitar foco del elemento actual
+
+  if (direction === "down") {
+    focusedIndex = (focusedIndex + 1) % focusableElements.length;
+  } else if (direction === "up") {
+    focusedIndex = (focusedIndex - 1 + focusableElements.length) % focusableElements.length;
+  } else if (direction === "right" || direction === "left") {
+    // Opcional: Implementa lógica para navegación horizontal si es relevante
+  }
+
+  focusableElements[focusedIndex].classList.add("focused"); // Agregar foco al nuevo elemento
+}
+
+// Ejecutar la acción del elemento enfocado
+function activateFocusedElement() {
+  focusableElements[focusedIndex].click(); // Simula un clic en el elemento
+}
+
+// Manejar los eventos de teclado
+document.addEventListener("keydown", (event) => {
+  switch (event.code) {
+    case "ArrowDown":
+      moveFocus("down");
+      break;
+    case "ArrowUp":
+      moveFocus("up");
+      break;
+    case "ArrowRight":
+    case "ArrowLeft":
+      moveFocus(event.code === "ArrowRight" ? "right" : "left");
+      break;
+    case "Enter":
+      activateFocusedElement();
+      break;
+    default:
+      break;
+  }
+});
 
 // Botones
 loopBtn.addEventListener("click", () => {

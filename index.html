@@ -27,25 +27,32 @@
     width: 5px;
     background: transparent;
     }
+
     ul::-webkit-scrollbar-thumb {
     background: rgb(34 197 94 / var(--tw-bg-opacity, 1));
     border-radius: 5px;
     }
+
+    .focused {
+      outline: 2px solid #00ff00; /* Resaltar con un borde verde */
+      background-color: rgba(0, 255, 0, 0.2); /* Fondo semitransparente */
+    }
     </style>
 </head>
 <body class="text-white h-screen flex flex-col">
-  <header class="w-full text-center py-4 absolute top-0">
-    <h1 class="text-4xl font-bold">Krautraoke</h1>
-    <button id="playlist-btn" class="absolute top-4 left-4 text-white text-2xl">
-      <i class="fa fa-list"></i>
-    </button>
-  </header>
+  <button id="playlist-btn" class="absolute top-4 left-4 text-white text-2xl focusable">
+    <i class="fa fa-list"></i>
+  </button>
+
+  <button id="fullscreen-btn" class="absolute top-4 right-4 text-white text-2xl focusable">
+    <i class="fa fa-expand"></i>
+  </button>
 
   <main class="main-container flex-1 flex items-center justify-center gap-8 px-4">
     <div class="flex w-full justify-between items-center">
       <!-- Contenedor para el cover, con borde redondeado -->
       <div class="album-container flex justify-center items-center w-1/2">
-        <div class="album-cover w-80 h-80 rounded-xl overflow-hidden">
+        <div class="album-cover w-72 h-72 rounded-xl overflow-hidden">
           <img id="album-cover" src="" alt="Álbum" class="w-full h-full object-cover hidden">
         </div>
       </div>
@@ -62,7 +69,7 @@
   <div class="playlist fixed bg-black p-4 shadow-lg h-[calc(100vh-96px)] hidden" id="playlist">
     <!-- Botón para cerrar la playlist -->
     <div class="flex justify-between items-center mb-4">
-      <button id="close-playlist-btn" class="text-white text-2xl">
+      <button id="close-playlist-btn" class="text-white text-2xl focusable">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -86,22 +93,22 @@
     <!-- Controles de reproducción y barra de progreso (centrados) -->
     <div class="controls-container flex flex-col items-center flex-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <div class="buttons flex justify-center gap-10 mb-4 text-gray-400 text-xl">
-        <button id="shuffle-btn">
+        <button id="shuffle-btn" class="focusable">
           <i class="fa-solid fa-shuffle hover:text-white transition duration-100"></i>
         </button>
-        <button id="prev-btn">
+        <button id="prev-btn" class="focusable">
           <i class="fa-solid fa-backward-step hover:text-white transition duration-100"></i>
         </button>
-        <button id="play-btn">
+        <button id="play-btn" class="focusable">
           <i class="fa-solid text-white fa-circle-play text-4xl"></i>
         </button>
-        <button id="pause-btn" class="hidden">
+        <button id="pause-btn" class="hidden focusable">
           <i class="fa-solid text-white fa-circle-pause text-4xl"></i>
         </button>
-        <button id="next-btn">
+        <button id="next-btn" class="focusable">
           <i class="fa-solid fa-forward-step hover:text-white"></i>
         </button>
-        <button id="loop-btn">
+        <button id="loop-btn" class="focusable">
           <i class="fa-solid fa-arrows-rotate hover:text-white transition duration-100"></i>
         </button>
       </div>
